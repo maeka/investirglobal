@@ -1,0 +1,120 @@
+/*------------------------------------*\
+    #Carousel
+\*------------------------------------*/
+.carousel-dots {
+    .owl-controls {
+        margin-top: 50px;
+        .owl-dots {
+            .owl-dot {
+                span {
+                    height: 11px;
+                    width: 11px;
+                    border-radius: 50%;
+                    background-color: transparent;
+                    border: 2px solid rgba(100, 100, 100, 0.5);
+                    margin: 0 4px;
+                }
+
+                &.active {
+                    span {
+                        background-color: #646464;
+                        border-color: #646464;
+                    }
+                }
+            }
+        }
+    }
+
+    &.carousel-white {
+        .owl-controls {
+            .owl-dots {
+                .owl-dot {
+                    span {
+                        border-color: rgba(255, 255, 255, 0.5);
+                    }
+
+                    &.active {
+                        span {
+                            background-color: $color-white;
+                            border-color: $color-white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.carousel-navs {
+    .owl-controls {
+        .owl-nav {
+            position: relative;
+
+            [class*="owl-"] {
+                position: absolute;
+                top: 50%;
+                height: 60px;
+                line-height: 60px;
+                margin-top: -30px;
+                color: $color-heading;
+                font-size: 0;
+                font-weight: 400;
+                text-align: center;
+                background-color: transparent;
+                padding: 0;
+                border-radius: 0;
+                transition: all 0.35s;
+                margin-top: -250px;
+
+                &:hover {
+                    color: $color-theme;
+                    background-color: transparent;
+                }
+            }
+
+            .owl-prev {
+                left: 0;
+                &:before {
+                    font-family: "Linearicons-Free";
+                    content: "\e875";
+                    font-size: 40px;
+                }
+            }
+
+            .owl-next {
+                right: 0;
+                &:before {
+                    font-family: "Linearicons-Free";
+                    content: "\e876";
+                    font-size: 40px;
+                }
+            }
+        }
+
+        .owl-dots {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+
+            span {
+                background-color: transparent;
+                border: 1px solid #fff;
+            }
+            .owl-dot {
+                &.active,
+                &:hover {
+                    span {
+                        background: $color-white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .carousel-dots .owl-controls {
+        margin-top: 20px;
+    }
+}

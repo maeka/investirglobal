@@ -1,0 +1,68 @@
+/*------------------------------------*\
+    #FORMS
+\*------------------------------------*/
+.form-control {
+    color: $color-white;
+    font-family: $font-body;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 45px;
+    height: 45px;
+    text-transform: capitalize;
+    border: none;
+    background: transparent;
+    padding-left: 24px;
+    margin-bottom: 30px;
+    position: relative;
+    border-radius: 0;
+    box-shadow: none;
+
+    &:focus {
+        border-color: $color-theme;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    &::-webkit-input-placeholder {
+        color: $color-white;
+    }
+
+    &:-moz-placeholder {
+        color: $color-white;
+    }
+
+    &::-moz-placeholder {
+        color: $color-white;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color-white;
+    }
+}
+/* Placeholder */
+
+.input-group {
+    border-radius: 25px;
+    border: 1px solid #ffffff;
+    background-color: transparent;
+    overflow: hidden;
+    padding: 3px;
+
+    .btn {
+        width: 160px;
+    }
+
+    .input-group-btn {
+        border-radius: 50px;
+        overflow: hidden;
+    }
+}
+
+.subscribe-alert {
+    margin-top: 1.5rem;
+
+    .alert {
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

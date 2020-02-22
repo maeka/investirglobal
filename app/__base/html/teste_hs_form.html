@@ -1,0 +1,53 @@
+<html>
+<head>
+
+</head>
+
+<body>
+
+    <script>
+    var form;
+
+     form.onsubmit = function (e) {
+        // stop the regular form submission
+
+        e.preventDefault();
+
+        // collect the form data while iterating over the inputs
+        var data = {};
+        for (var i = 0, ii = form.length; i < ii; ++i) {
+          var input = form[i];
+          if (input.name) {
+            data[input.name] = input.value;
+          }
+        }
+
+        // construct an HTTP request
+        var xhr = new XMLHttpRequest();
+        xhr.open(form.method, form.action, true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        alert('aqui');
+        break;
+        // send the collected data as JSON
+
+        xhr.send(JSON.stringify(data));
+
+        xhr.onloadend = function () {
+          // done
+        };
+      };
+
+    </script>
+
+
+<form action="https://forms.hubspot.com/uploads/form/v2/3381861/90256be2-1abf-478b-894d-86de50094e53" method="post" name="myform">
+  <input name="email" value="" />
+  <input type="hidden" name="hs_context" value="https://www.remessaonline.com.br" />
+  <input type="submit" name="enviar">
+</form>
+</body>
+
+
+</html>
+
+

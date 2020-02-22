@@ -1,0 +1,187 @@
+{
+  "portalId": 62515,
+  // Integer, read-only; The Hub ID that the form belongs to.
+  "guid": "62629d4c-df35-479b-995a-467a330922fb",
+  // String, read-only; The internal ID of the form
+  "name": "Example Form",
+  // String; The name of the form
+  "action": "",
+  // DEPRECATED - This field is no longer used.
+  "method": "POST",
+  // String, read-only; This will always be POST
+  "cssClass": "hs-form stacked",
+  // String; The default css classes added to the form when embedded.
+  // Can be overridden when embedding the form using the 'cssClass' option.
+  "redirect": "",
+  // String; The URL that the visitor will be redirected to after filling out the form.
+  "submitText": "Submit",
+  // String; The text used for the submit button.
+  "followUpId": "",
+  // DEPRECATED - This field is no longer used.
+  "notifyRecipients": "",
+  // String; A comma-separated list of user IDs that should receive submission notifications. Email addresses will be returned for individuals who aren't users.
+  "leadNurturingCampaignId": "",
+  // DEPRECATED - this field is no longer used.
+  "formFieldGroups": [
+  // A list of field groups. Each group represents a group of fields (displayed as a row when the form is embedded)
+    {
+      "fields": [
+      // A list of fields in the group
+        {
+          "name": "firstname",
+          // String; The name of the field. This needs to match the internal name of a contact property.
+          "label": "First Name",
+          // String; The label that will appear for the field.
+          "type": "string",
+          // String, one of string, number, date, datetime, or enumeration
+          // This needs to match the 'type' field of the corresponding contact property.
+          "fieldType": "text",
+          // String, one of textarea, text, date, file, number, select, radio, checkbox, or booleancheckbox
+          // The type of field that will be used when the form is embedded.
+          "description": "",
+          // String; The help text that displays below the label.
+          "groupName": "",
+          // DEPRECATED - this field is not used.
+          "displayOrder": -1,
+          // Integer; The order to display the fields in.
+          //If the values are negative, the fields appear in the order they appear in the 'fields' list
+          "required": false,
+          // Boolean; Required fields must be filled out to submit the form.
+          "selectedOptions": [],
+          // For enumerated fields, this will be a list of Strings representing the options that will be selected by default
+          "options": [],
+          // For enumerated fields, this will be a list of Strings representing the available options for the field
+          // Will be empty for non-enumerated fields.
+          "validation": {
+          // A set of options controlling the validation for the field
+          // NOTE: These options should NOT be modified through the API. Any validation should be set up in the form settings in HubSpot.
+            "name": "",
+            "message": "",
+            "data": "",
+            "useDefaultBlockList": false,
+            "blockedEmailAddresses": []
+          },
+          "enabled": true,
+          // DEPRECATED - this field is not used.
+          "hidden": false,
+          // Boolean; When set to true, the field will be rendered as a hidden field.
+          "defaultValue": "",
+          // String; The default value of the field
+          "isSmartField": false,
+          // Boolean; Whether or not the field is a smart field.
+          // Smart fields are hidden if the visitor is a known contact that already has a value for the field.)
+          "unselectedLabel": "",
+          // DEPRECATED - this field is not used.
+          "placeholder": "",
+          // String; The placeholder text for the field, which will display 
+          "dependentFieldFilters": [],
+          // A list of filters that will be used to display dependent fields.
+          "labelHidden": false
+          // DEPRECATED - this field is not used.
+        },
+        {
+          "name": "lastname",
+          "label": "Last Name",
+          "type": "string",
+          "fieldType": "text",
+          "description": "",
+          "groupName": "",
+          "displayOrder": -1,
+          "required": false,
+          "selectedOptions": [],
+          "options": [],
+          "validation": {
+            "name": "",
+            "message": "",
+            "data": "",
+            "useDefaultBlockList": false,
+            "blockedEmailAddresses": []
+          },
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "isSmartField": false,
+          "unselectedLabel": "",
+          "placeholder": "",
+          "dependentFieldFilters": [],
+          "labelHidden": false
+        }
+      ],
+      "default": true,
+      "isSmartGroup": false,
+      "richText": {
+        "content": ""
+      }
+    },
+    {
+      "fields": [
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "string",
+          "fieldType": "text",
+          "description": "",
+          "groupName": "contactinformation",
+          "displayOrder": -1,
+          "required": true,
+          "selectedOptions": [],
+          "options": [],
+          "validation": {
+            "name": "",
+            "message": "",
+            "data": "",
+            "useDefaultBlockList": false,
+            "blockedEmailAddresses": []
+          },
+          "enabled": true,
+          "hidden": false,
+          "defaultValue": "",
+          "isSmartField": false,
+          "unselectedLabel": "",
+          "placeholder": "",
+          "dependentFieldFilters": [],
+          "labelHidden": false
+        }
+      ],
+      "default": true,
+      "isSmartGroup": false,
+      "richText": {
+        "content": ""
+      }
+    }
+  ],
+  "createdAt": 1500588456053,
+  // Integer, read-only; A Unix timestamp (in milliseconds) for when the form was created.
+  "updatedAt": 1500588497572,
+  // Integer, read-only; A Unix timestamp (in milliseconds) for when the form was last modified.
+  "performableHtml": "",
+  // DEPRECATED - this field is not used.
+  "migratedFrom": "",
+  // DEPRECATED - this field is not used.
+  "ignoreCurrentValues": false,
+  // Boolean; If true, the form will pre-populate fields with known values for know contacts.
+  "metaData": [],
+  // DEPRECATED - this field is not used.
+  "deletable": true,
+  // Boolean; If false, the form is a system form (such as a blog comment or subscription form) and cannot be deleted.
+  // This will default to true and should also be set to true for forms created through the API.
+  "inlineMessage": "",
+  // String; A thank you message to display on the page after the form is submitted.
+  "tmsId": "",
+  // DEPRECATED - This field is no longer used.
+  "captchaEnabled": false,
+  // Boolean; Will be set to true for forms with captcha enabled.
+  // If you're submitting form data through the API, this should be set to false, and any captcha or other spam protection
+  // should be implemented in your form before sending the data to HubSpot
+  "campaignGuid": "",
+  // DEPRECATED - this field is not used.
+  "cloneable": true,
+  // Boolean; Whether or not the form can be cloned. Forms created through the API should leave this as true (the default).
+  "editable": true,
+  // Boolean; Whether or not the form can be edited. Forms created through the API should leave this as true (the default).
+  "formType": "HUBSPOT",
+  // String; This fields is deprecated and will always be HUBSPOT
+  "deletedAt": 0
+  // Integer, read-only; A Unix timestamp (in milliseconds) for when the form was deleted
+  // This will effectively always be 0 as deleted forms are not available through the API.
+}
