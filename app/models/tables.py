@@ -58,19 +58,32 @@ class Post(db.Model):
 	title = db.Column(db.Text)
 	description = db.Column(db.Text)
 	content = db.Column(db.Text)
+	uri = db.Column(db.Text)
 	created_at = db.Column(db.DateTime)
 	updated_at = db.Column(db.DateTime)
+
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 	user = db.relationship('User', foreign_keys=user_id)
 
-	def __init__(self, title, description, content, created_at, updated_at, user_id):
+	def __init__(self, title, description, content, uri, created_at, updated_at, user_id):
 		self.title = title
 		self.description = description
 		self.content = content
+		self.uri = uri
 		self.created_at = created_at
 		self.updated_at = created_at
 		self.user_id = user_id
+
+	@property
+	def get_content(id):
+		return Post.query.filter_by(id=id).first()
+
+	@property
+	def get_title(id):
+		post = Post.query.filter_by(id=id).first()
+		print(post)
+
 
 	def __repr__(self):
 		return '<Post %r>' % self.id

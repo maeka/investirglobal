@@ -7,14 +7,13 @@ import requests
 import json
 import urllib
 from app.models.forms import GetLead, DoLogin, InsertUser
-from app.models.tables import User
+from app.models.tables import User, Post
 from flask_login import login_user, LoginManager, current_user, login_required, logout_user
 from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 
 from app import db
-
 
 
 @app.route('/', defaults={'user': None})
@@ -34,12 +33,16 @@ def topic(user, topic):
 
 
 
-@app.route('/content', defaults={'title': None})
-@app.route('/content/<title>')
-def _content(title):
+@app.route('/content', defaults={'id': None, 'uri': None})
+@app.route('/content/<int:id>')
+def _content(id):
     """Serve homepage template."""
+    content = Post.query.filter_by(id=id).first()
+    content_title = content.title
+    content_author = User.query.filter_by(id=content.user_id).first()
+    #return content.title
     return render_template("pages/content.html", 
-        title=title)
+        id=id, title=content_title, author=content_author.username)
 
 
 @app.route('/test', defaults={'name': None})
