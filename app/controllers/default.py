@@ -37,12 +37,18 @@ def topic(user, topic):
 @app.route('/content/<int:id>')
 def _content(id):
     """Serve homepage template."""
-    content = Post.query.filter_by(id=id).first()
-    content_title = content.title
-    content_author = User.query.filter_by(id=content.user_id).first()
+    post = Post.query.filter_by(id=id).first()
+    content_title = post.title
+    content_author = User.query.filter_by(id=post.user_id).first()
+    content_body = post.content 
+    created_at = post.created_at
     #return content.title
     return render_template("pages/content.html", 
-        id=id, title=content_title, author=content_author.username)
+        id=id, 
+        title=content_title, 
+        author=content_author.username, 
+        created_at=created_at, 
+        content_body=content_body)
 
 
 @app.route('/test', defaults={'name': None})
