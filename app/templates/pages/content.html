@@ -21,7 +21,7 @@
 				        {% endif %}
 				        <p class="blog-post-meta">{{ created_at }} por <a href="#">{{ author }}</a></p>
 
-				        <p>{{ content_body }}</p>
+				        <p>{{ content_body|safe }}</p>
 				      </div><!-- /.blog-post -->
 
 				     

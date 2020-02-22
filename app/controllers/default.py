@@ -25,11 +25,11 @@ def index(user):
         user=user)
 
 
-@app.route('/topic/<topic>', defaults={'user': None, 'topic': None})
-def topic(user, topic):
+@app.route('/topic/<topic>', defaults={'topic': None})
+def topic(topic):
     """Serve homepage template."""
     return render_template("pages/topic.html", 
-        user=user, topic=topic)
+        topic=topic)
 
 
 
