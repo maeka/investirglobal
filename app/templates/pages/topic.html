@@ -5,8 +5,9 @@
 {% block content %}
 
 		  <!--container-main -->
-		  
+
 		  <div class="jumbotron rounded bg-white">
+		  	<h3 class="d-inline-block mb-4 text-primary font-italic border-bottom">{{ topic }}</h3>
 			{% for i in range (0, len) %} 
 		  	<!--gomo ini -->
 		    <div class="col-md-12 rounded bg-white">
@@ -15,7 +16,7 @@
 		          <strong class="d-inline-block mb-2 text-primary">{{ topic }}</strong>
 		          <h3 class="mb-0">{{ content_title[i] }}</h3>
 		          <div class="mb-1 text-muted">{{ created_at[i] }}</div>
-		          <p class="card-text mb-auto">{{ content_desc[i] }}</p>
+		          <!--p class="card-text mb-auto">{{ content_desc[i] }}</p-->
 		          <a href="/content/{{ content_id[i] }}" class="stretched-link">Continue reading</a>
 		        </div>
 		        <div class="col-auto d-none d-lg-block">
