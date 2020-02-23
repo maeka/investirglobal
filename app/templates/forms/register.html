@@ -1,6 +1,7 @@
 {% extends 'layouts/_index_base.html' %}
 {% block title %}Register{% endblock %}
 {% block content %}
+<div class="jumbotron rounded bg-white">
   <form method="post" class="form">
     {{ form.csrf_token }}
     <h3 class="form-heading">Register <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
@@ -13,4 +14,5 @@
     <p class="pull-left"><a href="{{ url_for('login') }}">Login</a></p>
     <input type="submit" value="Register" class="btn btn-primary btn-lg btn-block" >
   </form>
+</div>
 {% endblock %}

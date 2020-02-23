@@ -1,0 +1,12 @@
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Seções
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        {% for i in range (0, len_cats) %}
+          <a class="dropdown-item" href="/topic/{{ catag_name[i] }}">{{ catag_name[i] }}</a>
+        {% endfor %} 
+        <!--div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Something else here</a-->
+        </div>
+      </li>

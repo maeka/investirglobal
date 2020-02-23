@@ -3,24 +3,22 @@
 {% block title %}{{super()}} - Tudo Sobre Investir Globalmente{% endblock %}
 
 {% block content %}
-
+<div class="jumbotron rounded bg-white">
 		  <!--container-main -->
 
 				<main role="main" class="container">
 				  <div class="row">
 				    <div class="col-md-8 blog-main">
+				    	
 				      <h3 class="pb-4 mb-4 font-italic border-bottom">
 				        From the Firehose
 				      </h3>
 
 				      <div class="blog-post">
-				      	{% if get_content is not none %}
-				        <h2 class="blog-post-title">{{ title }}</h2>
-				        {% else %}
-				        <h2 class="blog-post-title">Demo Day</h2>
-				        {% endif %}
-				        <p class="blog-post-meta">{{ created_at }} por <a href="#">{{ author }}</a></p>
 
+				        <h2 class="blog-post-title">{{ title }}</h2>
+				        <p class="blog-post-meta">{{ created_at }} por <a href="#">{{ author }}</a></p>
+				        <p></p>
 				        <p>{{ content_body|safe }}</p>
 				      </div><!-- /.blog-post -->
 
@@ -72,5 +70,5 @@
 				</main><!-- /.container -->
 
 		  <!--fim-container-main -->
-
+</div>
 {% endblock %}

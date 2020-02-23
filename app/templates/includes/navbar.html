@@ -1,0 +1,41 @@
+<header class="blog-header py-3">
+<!--nav class="navbar fixed-top navbar-dark bg-primary"-->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+  			<!-- Navbar content -->
+		
+  <!--a class="navbar-brand" href="#">Navbar</a-->
+  <a class="navbar-brand blog-header-logo text-dark" href="/index">Investir Global</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    {% if current_user.is_authenticated %}
+    	<li class="nav-item form-inline my-2 my-lg-0"><a class="text-muted" href="#">Bem-vindo, {{ current_user.name }}</a>&nbsp;<li>
+    	<li class="nav-item form-inline my-2 my-lg-0"><a class="btn btn-sm btn-outline-secondary" href="/logout">Sair</a></li>
+    {% else %}
+      <li class="nav-item active form-inline my-2 my-lg-0">
+      	<a class="btn btn-sm btn-outline-secondary" href="/login?next=index">Login</a>&nbsp;
+        <!--a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a-->
+      </li>
+      <li class="nav-item form-inline my-2 my-lg-0">
+      	<a class="btn btn-sm btn-outline-secondary" href="/register">Criar Conta</a>
+        <!--a class="nav-link" href="#">Link</a-->
+      </li>
+     {% endif %}
+	{% include 'includes/navbar_menu.html' %}
+      <!--li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li-->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+
+  </nav>
+
+ </header>
