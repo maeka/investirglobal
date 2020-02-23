@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-import os
+import os, array
 from app import app
 from flask import Flask, render_template, redirect, flash, request, url_for, abort
 from werkzeug import url_encode
@@ -7,7 +7,7 @@ import requests
 import json
 import urllib
 from app.models.forms import GetLead, DoLogin, InsertUser
-from app.models.tables import User, Post
+from app.models.tables import User, Post, CatsTags, ZipperPostsCatsTags
 from flask_login import login_user, LoginManager, current_user, login_required, logout_user
 from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
@@ -15,27 +15,90 @@ from flask_admin.contrib.sqla import ModelView
 
 from app import db
 
-
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})
 def index(user):
     """Serve homepage template."""
+    cats = CatsTags.query.all()
+    catag_name = []
+    for cat in cats:
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_name.append(catag_name_)
+
     return render_template("pages/index.html", 
-        user=user)
+        user=user, 
+        catag_name=catag_name, 
+        len_cats = len(catag_name))
 
 
-@app.route('/topic/<topic>', defaults={'topic': None})
+@app.route('/topic', defaults={'topic': None})
+@app.route('/topic/<topic>')
 def topic(topic):
+#category scheme
+    cats = CatsTags.query.all()
+    catag_name = []
+    for cat in cats:
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_name.append(catag_name_)
+#category scheme
+
+    topic_row = CatsTags.query.filter_by(catag_name=topic).first()
+    topic_id = topic_row.id
+    topic_name = topic_row.catag_name
+    print(topic_name)
+
+    topic_posts_id = ZipperPostsCatsTags.query.filter_by(catag_id=topic_id).all()
+
+    content_id = []
+    content_title = []
+    content_desc = []
+    content_author = []
+    content_body = []
+    created_at = []
+
+    for post_id in topic_posts_id:
+        content_id_ = Post.query.filter_by(id=post_id.post_id).first().id
+        content_title_ = Post.query.filter_by(id=post_id.post_id).first().title
+        content_desc_ = Post.query.filter_by(id=post_id.post_id).first().description
+        print(Post.query.filter_by(id=post_id.post_id).first().user_id)
+        content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first()
+        content_body_ = Post.query.filter_by(id=post_id.post_id).first().content.encode("utf-8")
+        created_at_ = Post.query.filter_by(id=post_id.post_id).first().created_at
+        content_id.append(content_id_)
+        content_title.append(content_title_)
+        content_desc.append(content_desc_)
+        content_author.append(content_author_)
+        content_body.append(content_body_)
+        created_at.append(created_at_)
+
     """Serve homepage template."""
     return render_template("pages/topic.html", 
-        topic=topic)
+        topic=topic_name, 
+        content_id = content_id,
+        content_title=content_title,
+        content_author=content_author,
+        content_desc=content_desc,
+        content_body=content_body,
+        created_at=created_at,
+        len = len(topic_posts_id), 
+        catag_name=catag_name, 
+        len_cats = len(catag_name)
+        )
 
 
 
 @app.route('/content', defaults={'id': None, 'uri': None})
 @app.route('/content/<int:id>')
 def _content(id):
+#category scheme
+    cats = CatsTags.query.all()
+    catag_name = []
+    for cat in cats:
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_name.append(catag_name_)
+#category scheme
+
     """Serve homepage template."""
     post = Post.query.filter_by(id=id).first()
     content_title = post.title
@@ -48,7 +111,9 @@ def _content(id):
         title=content_title, 
         author=content_author.username, 
         created_at=created_at, 
-        content_body=content_body)
+        content_body=content_body, 
+        catag_name=catag_name, 
+        len_cats = len(catag_name))
 
 
 @app.route('/test', defaults={'name': None})
@@ -78,6 +143,15 @@ def test(name):
 
 def login():
     """Serve homepage template."""
+#category scheme
+    cats = CatsTags.query.all()
+    catag_name = []
+    for cat in cats:
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_name.append(catag_name_)
+#category scheme
+
+
     form = DoLogin()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -101,7 +175,10 @@ def login():
             flash("Invalid login.")
     else:
         print(form.errors)
-    return render_template("forms/login.html", form=form)
+    return render_template("forms/login.html", 
+        form=form, 
+        catag_name=catag_name, 
+        len_cats = len(catag_name))
 
 
 
@@ -115,6 +192,14 @@ def logout():
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
+#category scheme
+    cats = CatsTags.query.all()
+    catag_name = []
+    for cat in cats:
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_name.append(catag_name_)
+#category scheme
+
     form = InsertUser()
     if form.validate_on_submit():
         i = User(form.data['name'], 
@@ -125,10 +210,16 @@ def register():
         db.session.add(i)
         db.session.commit()
         print('valido')
-        return render_template('pages/index.html', form=form)
+        return render_template('pages/index.html', 
+            form=form, 
+            catag_name=catag_name, 
+            len_cats = len(catag_name))
     else:
         print(form.errors)
-    return render_template('forms/register.html', form=form)
+    return render_template('forms/register.html', 
+        form=form, 
+        catag_name=catag_name, 
+        len_cats = len(catag_name))
 
 
 

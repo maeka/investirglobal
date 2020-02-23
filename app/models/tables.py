@@ -129,7 +129,8 @@ class ZipperPostsCatsTags(db.Model):
 	post = db.relationship('Post', foreign_keys=post_id)
 	cattag = db.relationship('CatsTags', foreign_keys=catag_id)
 
-
+	def __repr__(self):
+		return '<ZipperPostsCatsTags %r>' % int(self.id)
 #admin = Admin(app, index_view=MyAdminIndexView())
 
 # Create customized index view class that handles login & registration
