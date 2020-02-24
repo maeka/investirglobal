@@ -20,16 +20,45 @@ from app import db
 @app.route('/index.html', defaults={'user': None})
 def index(user):
     """Serve homepage template."""
+#category scheme
     cats = CatsTags.query.all()
+    catag_id = []
     catag_name = []
+    catag_colour = []
     for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
         catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
+#category scheme
 
-    return render_template("pages/index.html", 
-        user=user, 
-        catag_name=catag_name, 
-        len_cats = len(catag_name))
+    #https://stackoverflow.com/questions/15791760/how-can-i-do-multiple-order-by-in-flask-sqlalchemy
+    #posts = Post.query.order_by(Post.created_at.desc()).all()
+
+    from sqlalchemy import text
+    sql = text('''SELECT
+    posts.id as id,
+    posts.title as title,
+    usr.username as author,
+    posts.created_at as pbdate,
+    group_concat(distinct ct.catag_name) as cats
+    FROM posts AS posts
+    LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id
+    LEFT JOIN users AS usr ON posts.user_id = usr.id
+    LEFT JOIN catstags AS ct ON zp.catag_id = ct.id
+    GROUP BY 1, 2, 3, 4;''')
+    result = db.engine.execute(sql)
+    posts_data = [row for row in result]
+    print posts_data
+
+    return render_template("pages/index.html",
+        posts_data = posts_data,
+        catag_name=catag_name,
+        catag_colour=catag_colour,
+        len_cats = len(catag_name),
+        user=user)
 
 
 @app.route('/topic', defaults={'topic': None})
@@ -38,9 +67,12 @@ def topic(topic):
 #category scheme
     cats = CatsTags.query.all()
     catag_name = []
+    catag_colour = []
     for cat in cats:
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
         catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
 #category scheme
 
     topic_row = CatsTags.query.filter_by(catag_name=topic).first()
@@ -62,7 +94,7 @@ def topic(topic):
         content_title_ = Post.query.filter_by(id=post_id.post_id).first().title
         content_desc_ = Post.query.filter_by(id=post_id.post_id).first().description
         print(Post.query.filter_by(id=post_id.post_id).first().user_id)
-        content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first()
+        content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first().username
         content_body_ = Post.query.filter_by(id=post_id.post_id).first().content.encode("utf-8")
         created_at_ = Post.query.filter_by(id=post_id.post_id).first().created_at
         content_id.append(content_id_)
@@ -83,6 +115,7 @@ def topic(topic):
         created_at=created_at,
         len = len(topic_posts_id), 
         catag_name=catag_name, 
+        catag_colour=catag_colour, 
         len_cats = len(catag_name)
         )
 
@@ -94,9 +127,12 @@ def _content(id):
 #category scheme
     cats = CatsTags.query.all()
     catag_name = []
+    catag_colour = []
     for cat in cats:
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
         catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
 #category scheme
 
     """Serve homepage template."""
@@ -105,6 +141,13 @@ def _content(id):
     content_author = User.query.filter_by(id=post.user_id).first()
     content_body = post.content 
     created_at = post.created_at
+    topic_id = ZipperPostsCatsTags.query.filter_by(post_id=post.id).all()
+    topic_name = []
+    for id_topic in topic_id:
+        topic_id_ = id_topic.catag_id
+        topic_name_ = CatsTags.query.filter_by(id=id_topic.catag_id).first().catag_name
+        topic_name.append(topic_name_)
+
     #return content.title
     return render_template("pages/content.html", 
         id=id, 
@@ -113,6 +156,9 @@ def _content(id):
         created_at=created_at, 
         content_body=content_body, 
         catag_name=catag_name, 
+        topic_name = topic_name,
+        len_topic_name = len(topic_name),
+        catag_colour=catag_colour, 
         len_cats = len(catag_name))
 
 
@@ -146,9 +192,12 @@ def login():
 #category scheme
     cats = CatsTags.query.all()
     catag_name = []
+    catag_colour = []
     for cat in cats:
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
         catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
 #category scheme
 
 
@@ -178,6 +227,7 @@ def login():
     return render_template("forms/login.html", 
         form=form, 
         catag_name=catag_name, 
+        catag_colour=catag_colour, 
         len_cats = len(catag_name))
 
 
@@ -195,9 +245,12 @@ def register():
 #category scheme
     cats = CatsTags.query.all()
     catag_name = []
+    catag_colour = []
     for cat in cats:
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
         catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
 #category scheme
 
     form = InsertUser()
@@ -213,12 +266,14 @@ def register():
         return render_template('pages/index.html', 
             form=form, 
             catag_name=catag_name, 
+            catag_colour=catag_colour, 
             len_cats = len(catag_name))
     else:
         print(form.errors)
     return render_template('forms/register.html', 
         form=form, 
         catag_name=catag_name, 
+        catag_colour=catag_colour, 
         len_cats = len(catag_name))
 
 

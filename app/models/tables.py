@@ -58,7 +58,7 @@ class Post(db.Model):
 	title = db.Column(db.Text)
 	description = db.Column(db.Text)
 	content = db.Column(db.Text)
-	uri = db.Column(db.Text)
+	uri = db.Column(db.Text, unique=True)
 	created_at = db.Column(db.DateTime)
 	updated_at = db.Column(db.DateTime)
 
@@ -101,13 +101,14 @@ class Follow(db.Model):
 	follower = db.relationship('User', foreign_keys=follower_id)
 
 
+
 class CatsTags(db.Model):
 	__tablename__ = "catstags"
 
 	id = db.Column(db.Integer, primary_key=True)
 	catag_name = db.Column(db.Text)
 	catag_parent_id = db .Column(db.Integer, db.ForeignKey('catstags.id'))
-	
+	catag_colour = db.Column(db.Text)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
 	user = db.relationship('User', foreign_keys=user_id)
