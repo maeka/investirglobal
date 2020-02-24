@@ -90,7 +90,7 @@ class Post(db.Model):
 
 
 	def __repr__(self):
-		return '<Post %r>' % self.id
+		return '<Post %r>' % self.title
 
 
 

@@ -172,6 +172,53 @@ def test(name):
     else:
         return 'Olá usuário'
 
+@app.route('/authors')
+@app.route('/autores')
+@app.route('/equipe')
+def authors():
+#category scheme
+    cats = CatsTags.query.all()
+    catag_id = []
+    catag_name = []
+    catag_colour = []
+    for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
+        catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
+#category scheme
+
+    return render_template("pages/authors.html",
+        catag_name=catag_name,
+        catag_colour=catag_colour,
+        len_cats = len(catag_name))
+
+
+@app.route('/sobre')
+@app.route('/about')
+@app.route('/sobre.html')
+def about():
+#category scheme
+    cats = CatsTags.query.all()
+    catag_id = []
+    catag_name = []
+    catag_colour = []
+    for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
+        catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
+#category scheme
+
+    return render_template("pages/about.html",
+        catag_name=catag_name,
+        catag_colour=catag_colour,
+        len_cats = len(catag_name))
+
 
 '''def redirect_dest(fallback):
     dest = request.args.get('next')
