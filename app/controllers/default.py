@@ -51,7 +51,6 @@ def index(user):
     GROUP BY 1, 2, 3, 4;''')
     result = db.engine.execute(sql)
     posts_data = [row for row in result]
-    print posts_data
 
     return render_template("pages/index.html",
         posts_data = posts_data,
