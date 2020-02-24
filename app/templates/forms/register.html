@@ -1,6 +1,7 @@
-{% extends 'layouts/_index_base.html' %}
-{% block title %}Register{% endblock %}
+{% extends 'layouts/_auth.html' %}
+{% block title %}{{super()}} - Tudo Sobre Investir Globalmente{% endblock %}
 {% block content %}
+
 <div class="jumbotron rounded bg-white">
   <form method="post" class="form">
     {{ form.csrf_token }}
@@ -15,4 +16,14 @@
     <input type="submit" value="Register" class="btn btn-primary btn-lg btn-block" >
   </form>
 </div>
+  {% if form.errors.email %}
+     <div class="subscribe-alert" role="alert">
+        <ul>
+          {% for e in form.errors.email %}
+          <li>{{ e }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+  {% endif %}
+
 {% endblock %}

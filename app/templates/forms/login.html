@@ -1,4 +1,4 @@
-{% extends 'layouts/_login.html' %}
+{% extends 'layouts/_auth.html' %}
 {% block title %}{{super()}} - Tudo Sobre Investir Globalmente{% endblock %}
 
 {% block content %}
@@ -8,7 +8,7 @@
     <h3 class="form-heading">Login <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
     {{ form.username(class='form-control', placeholder='username') }}
     {{ form.password(class='form-control', id='inputPassword') }}
-    &nbsp;&nbsp;{{ form.rememberme(class='form-check-input') }} Remember me
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ form.rememberme(class='form-check-input') }} Manter-me logado
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
 </div>

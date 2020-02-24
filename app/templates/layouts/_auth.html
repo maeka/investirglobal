@@ -1,0 +1,71 @@
+<html lang="pt-BR">
+<head>
+	<title>Investir Global</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet"/>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/blog.css') }}" rel="stylesheet">
+
+
+</head>	
+<body>
+
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+			{{message}}
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endwith %}
+
+	<div class="container">
+
+	{% include 'includes/navbar.html' %}
+
+	<!-- old header -->
+
+	<!-- fim old header -->
+
+
+
+		<!-- /.containezao -->
+		{% block content %}
+
+
+		{% endblock %}
+		<!-- /.containezao -->
+
+
+<footer class="container">
+  <p>&copy; Investir Global 2020</p>
+</footer>
+
+    <script src="{{url_for('static',filename='js/vendor/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/vendor.js')}}"></script>
+    <script src="{{url_for('static',filename='js/functions.js')}}"></script>
+</body>
+</html>

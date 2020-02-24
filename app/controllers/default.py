@@ -43,12 +43,14 @@ def index(user):
     posts.title as title,
     usr.username as author,
     posts.created_at as pbdate,
+    posts.image_thumb as img_thumb,
     group_concat(distinct ct.catag_name) as cats
     FROM posts AS posts
     LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id
     LEFT JOIN users AS usr ON posts.user_id = usr.id
     LEFT JOIN catstags AS ct ON zp.catag_id = ct.id
-    GROUP BY 1, 2, 3, 4;''')
+    GROUP BY 1, 2, 3, 4
+    ORDER BY posts.created_at DESC;''')
     result = db.engine.execute(sql)
     posts_data = [row for row in result]
 
@@ -204,7 +206,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.password == form.password.data:
-            login_user(user)
+            login_user(user, remember=form.rememberme.data)
             User.get_id(user)
             print(current_user)
             flash("Logged in!")

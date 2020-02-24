@@ -61,12 +61,14 @@ class Post(db.Model):
 	uri = db.Column(db.Text, unique=True)
 	created_at = db.Column(db.DateTime)
 	updated_at = db.Column(db.DateTime)
+	image_featured = db.Column(db.Text)
+	image_thumb = db.Column(db.Text)
 
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 	user = db.relationship('User', foreign_keys=user_id)
 
-	def __init__(self, title, description, content, uri, created_at, updated_at, user_id):
+	def __init__(self, title, description, content, uri, created_at, updated_at, user_id, image_featured, image_thumb):
 		self.title = title
 		self.description = description
 		self.content = content
@@ -74,6 +76,8 @@ class Post(db.Model):
 		self.created_at = created_at
 		self.updated_at = created_at
 		self.user_id = user_id
+		self.image_featured = image_featured
+		self.image_thumb = image_thumb
 
 	@property
 	def get_content(id):
@@ -110,6 +114,7 @@ class CatsTags(db.Model):
 	catag_parent_id = db .Column(db.Integer, db.ForeignKey('catstags.id'))
 	catag_colour = db.Column(db.Text)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
 	user = db.relationship('User', foreign_keys=user_id)
 	parent = db.relationship('CatsTags', foreign_keys=catag_parent_id)
