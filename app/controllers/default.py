@@ -12,6 +12,7 @@ from flask_login import login_user, LoginManager, current_user, login_required, 
 from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
+import psycopg2
 
 from app import db
 
@@ -89,6 +90,8 @@ def topic(topic):
     content_author = []
     content_body = []
     created_at = []
+    image_featured = []
+    image_thumb = []
 
     for post_id in topic_posts_id:
         content_id_ = Post.query.filter_by(id=post_id.post_id).first().id
@@ -98,12 +101,16 @@ def topic(topic):
         content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first().username
         content_body_ = Post.query.filter_by(id=post_id.post_id).first().content.encode("utf-8")
         created_at_ = Post.query.filter_by(id=post_id.post_id).first().created_at
+        image_featured_ = Post.query.filter_by(id=post_id.post_id).first().image_featured
+        image_thumb_ = Post.query.filter_by(id=post_id.post_id).first().image_thumb
         content_id.append(content_id_)
         content_title.append(content_title_)
         content_desc.append(content_desc_)
         content_author.append(content_author_)
         content_body.append(content_body_)
         created_at.append(created_at_)
+        image_featured.append(image_featured_)
+        image_thumb.append(image_thumb_)
 
     """Serve homepage template."""
     return render_template("pages/topic.html", 
@@ -117,7 +124,9 @@ def topic(topic):
         len = len(topic_posts_id), 
         catag_name=catag_name, 
         catag_colour=catag_colour, 
-        len_cats = len(catag_name)
+        len_cats = len(catag_name),
+        image_featured = image_featured,
+        image_thumb = image_thumb
         )
 
 
@@ -152,29 +161,36 @@ def _content(id):
         topic_name_ = CatsTags.query.filter_by(id=id_topic.catag_id).first().catag_name
         topic_name.append(topic_name_)
 
-    topic_name_str = '%'.join(topic_name)
-    print(topic_name_str)
+    topic_name_str = "','".join(topic_name)
+    topic_name_str_ = "'"+topic_name_str+"'"
+
+
+
 
     from sqlalchemy import text
-    sql = text('''SELECT
-    posts.id as id,
-    posts.title as title,
-    usr.username as author,
-    posts.created_at as pbdate,
-    posts.image_thumb as img_thumb,
-    group_concat(distinct ct.catag_name) as cats
-    FROM posts AS posts
-    LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id
-    LEFT JOIN users AS usr ON posts.user_id = usr.id
-    LEFT JOIN catstags AS ct ON zp.catag_id = ct.id
-    WHERE ct.catag_name LIKE :x
-    GROUP BY 1, 2, 3, 4
-    ORDER BY posts.created_at DESC;''')
+    sql = text('''SELECT 
+        posts.id as id, 
+        posts.title as title, 
+        usr.username as author,
+        posts.created_at as pbdate,
+        posts.image_thumb as img_thumb, 
+        group_concat(distinct ct.catag_name) as cats 
+        FROM posts AS posts 
+        LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id 
+        LEFT JOIN users AS usr ON posts.user_id = usr.id 
+        LEFT JOIN catstags AS ct ON zp.catag_id = ct.id 
+        WHERE ct.catag_name IN (:x) 
+        GROUP BY 1, 2, 3, 4 ORDER BY posts.created_at DESC;''')
 
+    print(sql)
+    result = db.engine.execute(sql, x = topic_name[0])
 
-    result = db.engine.execute(sql, 
-        x = topic_name[0])
+    #result = db.engine.execute(sql, 
+    #    x = topic_name[0])
 
+    #result = db.engine.execute(sql, 
+    #    x = "'"+topic_name_str+"'")
+    #print(sql)
 
     posts_data = [row for row in result]
 
