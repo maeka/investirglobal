@@ -134,6 +134,9 @@ def _content(id):
         catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
         catag_name.append(catag_name_)
         catag_colour.append(catag_colour_)
+    
+    catag_name_str = ', '.join(catag_name)
+    catag_name_str_query = ''.join(catag_name)
 #category scheme
 
     """Serve homepage template."""
@@ -149,6 +152,33 @@ def _content(id):
         topic_name_ = CatsTags.query.filter_by(id=id_topic.catag_id).first().catag_name
         topic_name.append(topic_name_)
 
+    topic_name_str = '%'.join(topic_name)
+    print(topic_name_str)
+
+    from sqlalchemy import text
+    sql = text('''SELECT
+    posts.id as id,
+    posts.title as title,
+    usr.username as author,
+    posts.created_at as pbdate,
+    posts.image_thumb as img_thumb,
+    group_concat(distinct ct.catag_name) as cats
+    FROM posts AS posts
+    LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id
+    LEFT JOIN users AS usr ON posts.user_id = usr.id
+    LEFT JOIN catstags AS ct ON zp.catag_id = ct.id
+    WHERE ct.catag_name LIKE :x
+    GROUP BY 1, 2, 3, 4
+    ORDER BY posts.created_at DESC;''')
+
+
+    result = db.engine.execute(sql, 
+        x = topic_name[0])
+
+
+    posts_data = [row for row in result]
+
+
     #return content.title
     return render_template("pages/content.html", 
         id=id, 
@@ -160,7 +190,8 @@ def _content(id):
         topic_name = topic_name,
         len_topic_name = len(topic_name),
         catag_colour=catag_colour, 
-        len_cats = len(catag_name))
+        len_cats = len(catag_name),
+        posts_data = posts_data)
 
 
 @app.route('/test', defaults={'name': None})
