@@ -13,6 +13,7 @@ from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 import psycopg2
+import datetime
 
 from app import db
 
@@ -43,7 +44,7 @@ def index(user):
     posts.id as id,
     posts.title as title,
     usr.username as author,
-    posts.created_at as pbdate,
+    datetime(posts.created_at) as pbdate,
     posts.image_thumb as img_thumb,
     group_concat(distinct ct.catag_name) as cats
     FROM posts AS posts
@@ -169,7 +170,7 @@ def _content(id):
         posts.id as id, 
         posts.title as title, 
         usr.username as author,
-        posts.created_at as pbdate,
+        datetime(posts.created_at) as pbdate,
         posts.image_thumb as img_thumb, 
         group_concat(distinct ct.catag_name) as cats 
         FROM posts AS posts 
@@ -191,7 +192,7 @@ def _content(id):
         posts.id as id, 
         posts.title as title, 
         usr.username as author,
-        posts.created_at as pbdate,
+        datetime(posts.created_at) as pbdate,
         posts.image_thumb as img_thumb, 
         group_concat(distinct ct.catag_name) as cats 
         FROM posts AS posts 
