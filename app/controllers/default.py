@@ -13,9 +13,19 @@ from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 import psycopg2
-import datetime
+from datetime import datetime, time
+import babel
 
 from app import db
+
+def format_datetime(value, format='medium'):
+    if format == 'full':
+        format="EEEE, d. MMMM y 'at' HH:mm"
+    elif format == 'medium':
+        format="EE dd.MM.y HH:mm"
+    return babel.dates.format_datetime(value, format)
+
+app.jinja_env.filters['datetime'] = format_datetime
 
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
@@ -187,8 +197,10 @@ def _content(id):
 
     sql_forza = sql_raca_a+sql_raca_b+sql_raca_c
 
+    '''
     from sqlalchemy import text
-    sql = text('''SELECT 
+    sql = text('''
+    '''SELECT 
         posts.id as id, 
         posts.title as title, 
         usr.username as author,
@@ -200,9 +212,10 @@ def _content(id):
         LEFT JOIN users AS usr ON posts.user_id = usr.id 
         LEFT JOIN catstags AS ct ON zp.catag_id = ct.id 
         WHERE ct.catag_name IN (:x) 
-        GROUP BY 1, 2, 3, 4 ORDER BY posts.created_at DESC;''')
+        GROUP BY 1, 2, 3, 4 ORDER BY posts.created_at DESC;'''
+        #)'''
+    #print(sql)
 
-    print(sql)
     result = db.engine.execute(sql_forza)
 
     #result = db.engine.execute(sql, 
