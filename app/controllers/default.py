@@ -165,7 +165,26 @@ def _content(id):
     topic_name_str_ = "'"+topic_name_str+"'"
 
 
+    sql_raca_a = '''SELECT 
+        posts.id as id, 
+        posts.title as title, 
+        usr.username as author,
+        posts.created_at as pbdate,
+        posts.image_thumb as img_thumb, 
+        group_concat(distinct ct.catag_name) as cats 
+        FROM posts AS posts 
+        LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id 
+        LEFT JOIN users AS usr ON posts.user_id = usr.id 
+        LEFT JOIN catstags AS ct ON zp.catag_id = ct.id 
+        WHERE ct.catag_name IN ('''
+    sql_raca_b = topic_name_str_
+    sql_raca_c = ''')
+        GROUP BY 1, 2, 3, 4 
+        ORDER BY posts.created_at DESC;'''
 
+    print(sql_raca_a+sql_raca_b+sql_raca_c)
+
+    sql_forza = sql_raca_a+sql_raca_b+sql_raca_c
 
     from sqlalchemy import text
     sql = text('''SELECT 
@@ -183,7 +202,7 @@ def _content(id):
         GROUP BY 1, 2, 3, 4 ORDER BY posts.created_at DESC;''')
 
     print(sql)
-    result = db.engine.execute(sql, x = topic_name[0])
+    result = db.engine.execute(sql_forza)
 
     #result = db.engine.execute(sql, 
     #    x = topic_name[0])
