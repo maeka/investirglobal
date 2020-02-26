@@ -188,7 +188,7 @@ def _content(id):
         GROUP BY 1, 2, 3, 4 
         ORDER BY posts.created_at DESC;'''
 
-    print(sql_raca_a+sql_raca_b+sql_raca_c)
+    #print(sql_raca_a+sql_raca_b+sql_raca_c)
 
     sql_forza = sql_raca_a+sql_raca_b+sql_raca_c
 
