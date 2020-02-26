@@ -13,19 +13,13 @@ from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 import psycopg2
-from datetime import datetime, time
-import babel
 
 from app import db
 
-def format_datetime(value, format='medium'):
-    if format == 'full':
-        format="EEEE, d. MMMM y 'at' HH:mm"
-    elif format == 'medium':
-        format="EE dd.MM.y HH:mm"
-    return babel.dates.format_datetime(value, format)
 
-app.jinja_env.filters['datetime'] = format_datetime
+
+
+
 
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
@@ -172,9 +166,10 @@ def _content(id):
         topic_name_ = CatsTags.query.filter_by(id=id_topic.catag_id).first().catag_name
         topic_name.append(topic_name_)
 
+
+
     topic_name_str = "','".join(topic_name)
     topic_name_str_ = "'"+topic_name_str+"'"
-
 
     sql_raca_a = '''SELECT 
         posts.id as id, 
@@ -406,4 +401,7 @@ def register():
 
 
 
-
+@app.route("/reports")
+@login_required
+def reports():
+    print("em breve!")
