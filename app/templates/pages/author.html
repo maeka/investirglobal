@@ -14,26 +14,39 @@
 
 				      <h3 class="pb-4 mb-4 font-italic border-bottom">
 				        <ul class="list-inline">
-				        	<li class="list-inline-item">Autores</li>
+				        	{% for auth in author %}
+				        	<li class="list-inline-item">{{ auth.author }}							  	
+				        		<img class="ml-3 rounded-circle" src="../../static/images/content/thumb/{{ auth.img }}" alt="Generic placeholder image" width="64" height="64"></li>
+				        	{% endfor %}
 						</ul>
 				      </h3>
 
-					{% for author in authors %} 
 					<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-				    		<!--autors row ini-->
-								<div  class="col p-4 d-flex flex-column position-static">
-							    	<a href="/author/{{ author.name }}" class="stretched-link">
-							    		<h5 class="mt-0 mb-1">{{ author.name }}</h5>
-							    		{{ author.desc }}
-							    	</a>
-								</div>
-								<div class="col-auto d-none d-lg-block p-4">
-							  	<img class="ml-3 rounded-circle" src="../../static/images/content/thumb/{{ author.image_thumb }}" alt="{{ author.name }}" width="64" height="64">
-								</div>
-							<!--autors row end-->
+					{% for auth in author %} 
+				  	<!--gomo ini -->
+				    <div class="col-md-12 rounded bg-white">
+				      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+				        <div class="col p-4 d-flex flex-column position-static">
+				          <strong class="d-inline-block mb-2 text-primary">{{ auth.cats }}</strong>
+				          <h3 class="mb-0">{{ auth.title }}</h3>
+				          <div class="mb-1 text-muted">{{ auth.pbdate }}</div>
+				          <p class="card-text mb-auto"></p>
+				          <a href="/content/{{ auth.id }}" class="stretched-link">Continue reading</a>
+				        </div>
+				        <div class="col-auto d-none d-lg-block">
+					        {% if auth.img_thumb %}
+					        <img src="../../static/images/content/thumb/{{ auth.img_thumb }}">
+					        {% else %}
+
+					        {% endif %}
+				        </div>
+				      </div>
+				    </div>
+				  	<!--gomo fim -->
 
 					</div>
 					{% endfor %} 
+
 				    	
 
 

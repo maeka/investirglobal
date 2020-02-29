@@ -19,8 +19,6 @@ from app import db
 
 
 
-
-
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})
@@ -151,7 +149,7 @@ def _content(id):
     
     catag_name_str = ', '.join(catag_name)
     catag_name_str_query = ''.join(catag_name)
-#category scheme
+    #category scheme
 
     """Serve homepage template."""
     post = Post.query.filter_by(id=id).first()
@@ -165,8 +163,6 @@ def _content(id):
         topic_id_ = id_topic.catag_id
         topic_name_ = CatsTags.query.filter_by(id=id_topic.catag_id).first().catag_name
         topic_name.append(topic_name_)
-
-
 
     topic_name_str = "','".join(topic_name)
     topic_name_str_ = "'"+topic_name_str+"'"
@@ -227,7 +223,7 @@ def _content(id):
     return render_template("pages/content.html", 
         id=id, 
         title=content_title, 
-        author=content_author.username, 
+        author=content_author.name, 
         created_at=created_at, 
         content_body=content_body, 
         catag_name=catag_name, 
@@ -247,6 +243,7 @@ def test(name):
     else:
         return 'Olá usuário'
 
+
 @app.route('/authors')
 @app.route('/autores')
 @app.route('/equipe')
@@ -265,10 +262,68 @@ def authors():
         catag_colour.append(catag_colour_)
 #category scheme
 
+    authors = User.query.filter_by(role='author').all()
+    print(authors)
     return render_template("pages/authors.html",
         catag_name=catag_name,
         catag_colour=catag_colour,
-        len_cats = len(catag_name))
+        len_cats = len(catag_name),
+        authors=authors)
+
+@app.route('/author', defaults={'name': None})
+@app.route('/author/<name>')
+def author(name):
+#category scheme
+    cats = CatsTags.query.all()
+    catag_id = []
+    catag_name = []
+    catag_colour = []
+    for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
+        catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
+#category scheme
+    #author = User.query.filter_by(name=name).first()
+    sql_author_role = User.query.filter_by(name=name).first().role
+    sql_author_b = User.query.filter_by(name=name).first().username
+    sql_author_a = '''SELECT
+    posts.id as id,
+    posts.title as title,
+    usr.name as author,
+    usr.description as description,
+    usr.image_thumb as img,
+    posts.created_at as pbdate,
+    posts.image_thumb as img_thumb,
+    group_concat(distinct ct.catag_name) as cats
+    FROM posts AS posts
+    LEFT JOIN zipper_posts_catstags AS zp ON posts.id = zp.post_id
+    LEFT JOIN users AS usr ON posts.user_id = usr.id
+    LEFT JOIN catstags AS ct ON zp.catag_id = ct.id
+    WHERE usr.username LIKE "''' 
+    str(sql_author_b)
+    sql_author_c = '''" ORDER BY posts.created_at DESC;'''
+
+    sql_author = sql_author_a+sql_author_b+sql_author_c
+    print(sql_author)
+
+    result = db.engine.execute(sql_author)
+
+    author_data = [row for row in result]
+
+    #return "author"+ name
+
+    if sql_author_role == 'author':
+        return render_template("pages/author.html",
+        catag_name=catag_name,
+        catag_colour=catag_colour,
+        len_cats = len(catag_id),
+        len = len(author_data),
+        author=author_data)
+
+
 
 
 @app.route('/sobre')
@@ -404,4 +459,4 @@ def register():
 @app.route("/reports")
 @login_required
 def reports():
-    print("em breve!")
+    return "em breve!"

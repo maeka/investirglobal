@@ -15,13 +15,17 @@ class User(db.Model):
 	email = db.Column(db.String, unique=True)
 	password = db.Column(db.String)
 	role = db.Column(db.String)
+	description = db.Column(db.String)
+	image_thumb = db.Column(db.String)
 
-	def __init__(self, name, username, email, password, role):
+	def __init__(self, name, username, email, password, role, description, image_thumb):
 		self.name = name
 		self.username = username
 		self.email = email
 		self.password = password
 		self.role = role
+		self.description = description
+		self.image_thumb = image_thumb
 
 	@property
 	def is_authenticated(self):
@@ -63,12 +67,13 @@ class Post(db.Model):
 	updated_at = db.Column(db.DateTime)
 	image_featured = db.Column(db.Text)
 	image_thumb = db.Column(db.Text)
+	image_thumb_mini = db.Column(db.Text)
 
 	user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 	user = db.relationship('User', foreign_keys=user_id)
 
-	def __init__(self, title, description, content, uri, created_at, updated_at, user_id, image_featured, image_thumb):
+	def __init__(self, title, description, content, uri, created_at, updated_at, user_id, image_featured, image_thumb, image_thumb_mini):
 		self.title = title
 		self.description = description
 		self.content = content
@@ -78,6 +83,8 @@ class Post(db.Model):
 		self.user_id = user_id
 		self.image_featured = image_featured
 		self.image_thumb = image_thumb
+		self.image_thumb_mini = image_thumb_mini
+
 
 	@property
 	def get_content(id):
@@ -104,6 +111,9 @@ class Follow(db.Model):
 	user = db.relationship('User', foreign_keys=user_id)
 	follower = db.relationship('User', foreign_keys=follower_id)
 
+	def __init__(self, user_id, follower_id):
+		self.user_id = user_id
+		self.follower_id = follower_id
 
 
 class CatsTags(db.Model):
@@ -112,12 +122,17 @@ class CatsTags(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	catag_name = db.Column(db.Text)
 	catag_parent_id = db .Column(db.Integer, db.ForeignKey('catstags.id'))
-	catag_colour = db.Column(db.Text)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
+	catag_colour = db.Column(db.Text)
 
 	user = db.relationship('User', foreign_keys=user_id)
 	parent = db.relationship('CatsTags', foreign_keys=catag_parent_id)
+
+	def __init__(self, catag_name, catag_parent_id, user_id, catag_colour):
+		self.catag_name = catag_name
+		self.catag_parent_id = catag_parent_id
+		self.user_id = user_id
+		self.catag_colour = catag_colour
 
 	def __repr__(self):
 		return '<CatsTags %r>' % self.catag_name
