@@ -45,7 +45,7 @@ def index(user):
     sql = text('''SELECT
     posts.id as id,
     posts.title as title,
-    usr.username as author,
+    usr.name as author,
     datetime(posts.created_at) as pbdate,
     posts.image_thumb as img_thumb,
     group_concat(distinct ct.catag_name) as cats
