@@ -101,7 +101,7 @@ def topic(topic):
         content_title_ = Post.query.filter_by(id=post_id.post_id).first().title
         content_desc_ = Post.query.filter_by(id=post_id.post_id).first().description
         print(Post.query.filter_by(id=post_id.post_id).first().user_id)
-        content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first().username
+        content_author_ = User.query.filter_by(id=Post.query.filter_by(id=post_id.post_id).first().user_id).first().name
         content_body_ = Post.query.filter_by(id=post_id.post_id).first().content.encode("utf-8")
         created_at_ = Post.query.filter_by(id=post_id.post_id).first().created_at
         image_featured_ = Post.query.filter_by(id=post_id.post_id).first().image_featured
