@@ -16,7 +16,7 @@
 				        <ul class="list-inline">
 				        	{% for auth in author %}
 				        	<li class="list-inline-item">{{ auth.author }}				  	
-				        		<img class="ml-3 rounded-circle" src="static/images/content/thumb/{{ auth.img }}" alt="Generic placeholder image" width="64" height="64"></li>
+				        		<img class="ml-3 rounded-circle" src="/static/images/content/thumb/{{ auth.img }}" alt="Generic placeholder image" width="64" height="64"></li>
 				        	{% endfor %}
 						</ul>
 				      </h3>
@@ -35,7 +35,7 @@
 				        </div>
 				        <div class="col-auto d-none d-lg-block">
 					        {% if auth.img_thumb %}
-					        <img src="static/images/content/thumb/{{ auth.img_thumb }}">
+					        <img src="/static/images/content/thumb/{{ auth.img_thumb }}">
 					        {% else %}
 
 					        {% endif %}

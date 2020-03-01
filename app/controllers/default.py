@@ -13,17 +13,17 @@ from is_safe_url import is_safe_url
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 import psycopg2
+from flask_sslify import SSLify
 
 from app import db
 
-'''@app.before_request
+@app.before_request
 def before_request():
     if request.url.startswith('http://'):
         url = request.url.replace('http://', 'https://', 1)
         code = 301
-        return redirect(url, code=code)'''
-
-
+        return redirect(url, code=code)
+        #return print(url)
 
 
 @app.route('/manifest.json')
