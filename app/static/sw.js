@@ -7,7 +7,7 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute([
     {
-      "url": "/",
+      "url": "/index.html",
       "revision": "1"
     }
   ]);
