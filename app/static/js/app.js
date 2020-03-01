@@ -19,7 +19,7 @@
 let deferredPrompt;
 const btnAdd = document.querySelector('#btnAdd');
 
-window.addEventListener('beforeinstallprompt', function(event) => {
+window.addEventListener('beforeinstallprompt', function(event) {
   // Prevent Chrome 67 and earlier from automatically showing the prompt
   console.log('beforeinstallprompt event fired');
   e.preventDefault();
