@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 import os, array
 from app import app
-from flask import Flask, render_template, redirect, flash, request, url_for, abort
+from flask import Flask, Blueprint, render_template, redirect, flash, request, url_for, abort
 from werkzeug import url_encode
 import requests
 import json
@@ -16,9 +16,12 @@ import psycopg2
 
 from app import db
 
+bp = Blueprint('default', __name__)
 
 
-
+@bp.route('/')
+@bp.route('/index')
+@bp.route('/index.html')
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})
