@@ -28,11 +28,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 btnAdd.addEventListener('click', (e) => {
   btnAdd.style.visibility = 'hidden';
+  deferredPrompt = e;
   if (deferredPrompt) {
     deferredPrompt.prompt();
   }
   console.log(e);
-  deferredPrompt = e;
+  //deferredPrompt = e;
   e
     .then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
