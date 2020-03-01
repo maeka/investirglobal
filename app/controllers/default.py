@@ -53,8 +53,8 @@ def webapp():
         catag_name.append(catag_name_)
         catag_colour.append(catag_colour_)
 #category scheme
-    return render_template('main_pwa/index.html',
-                           title='Flask-PWA',
+    return render_template('pages/wpa.html',
+                           title='Investir Global PWA',
                            catag_name=catag_name,
                            catag_colour=catag_colour,
                            len_cats = len(catag_name))
