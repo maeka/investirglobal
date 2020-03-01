@@ -9,13 +9,15 @@ from flask_sslify import SSLify
 
 
 
+
 app = Flask(__name__)
+#if 'DYNO' in os.environ:
+sslify = SSLify(app, permanent=True)  # only trigger SSLify if the app is running on Heroku
+
 app.config.from_object('config')
 
 
 
-#if 'DYNO' in os.environ:
-sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
 
 
 db = SQLAlchemy(app)
