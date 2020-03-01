@@ -12,7 +12,7 @@ if (workbox) {
     },
     {
       "url": "/webapp",
-      "revision": "1"
+      "revision": "2"
     }
   ]);
 

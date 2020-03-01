@@ -28,13 +28,11 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
 btnAdd.addEventListener('click', (e) => {
   btnAdd.style.visibility = 'hidden';
-  deferredPrompt = e;
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-  }
+  deferredPrompt = prompt("Aceita instalar o app?");
+
   console.log(e);
   //deferredPrompt = e;
-  e
+  deferredPrompt
     .then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt');
