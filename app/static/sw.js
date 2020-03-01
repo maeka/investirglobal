@@ -9,6 +9,10 @@ if (workbox) {
     {
       "url": "https://investirglobal.herokuapp.com/index.html",
       "revision": "2"
+    },
+    {
+      "url": "https://investirglobal.herokuapp.com/webapp",
+      "revision": "2"
     }
   ]);
 
