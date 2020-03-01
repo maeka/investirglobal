@@ -34,6 +34,7 @@ btnAdd.addEventListener('click', (e) => {
   console.log(e);
   deferredPrompt = e;
   e.prompt();
+  e
     .then(function(choiceResult) {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt');
