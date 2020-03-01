@@ -30,10 +30,7 @@ login_manager.init_app(app)
 
 
 from app.models import tables 
-from app.controllers import default, main, pwa
+from app.controllers import default
 
-app.register_blueprint(main.bp)
-app.register_blueprint(pwa.bp)
-app.register_blueprint(default.bp)
 
 #return app

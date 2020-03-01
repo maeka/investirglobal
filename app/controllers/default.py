@@ -1,7 +1,7 @@
 # This Python file uses the following encoding: utf-8
 import os, array
 from app import app
-from flask import Flask, Blueprint, render_template, redirect, flash, request, url_for, abort
+from flask import Flask, Blueprint, make_response, render_template, redirect, flash, request, url_for, abort, send_from_directory
 from werkzeug import url_encode
 import requests
 import json
@@ -23,12 +23,40 @@ def before_request():
         code = 301
         return redirect(url, code=code)'''
 
-bp = Blueprint('default', __name__)
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('static', 'manifest.json')
 
 
-@bp.route('/', defaults={'user': None})
-@bp.route('/index', defaults={'user': None})
-@bp.route('/index.html', defaults={'user': None})
+@app.route('/sw.js')
+def service_worker():
+    response = make_response(send_from_directory('static', 'sw.js'))
+    response.headers['Cache-Control'] = 'no-cache'
+    return response
+
+
+@app.route('/webapp')
+def webapp():
+#category scheme
+    cats = CatsTags.query.all()
+    catag_id = []
+    catag_name = []
+    catag_colour = []
+    for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
+        catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
+        catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
+        catag_name.append(catag_name_)
+        catag_colour.append(catag_colour_)
+#category scheme
+    return render_template('main_pwa/index.html',
+                           title='Flask-PWA',
+                           catag_name=catag_name,
+                           catag_colour=catag_colour,
+                           len_cats = len(catag_name))
+
+
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})
