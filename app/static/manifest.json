@@ -3,9 +3,10 @@
   "short_name": "Investir Global PWA",
   "description": "A progressive webapp template built with Flask",
   "theme_color": "#FFFFFF",
-  "background_color": "#F8F8F8",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "portrait",
+  "scope": "https://investirglobal.herokuapp.com",
   "start_url": "/",
   "icons": [
     {
