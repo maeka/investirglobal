@@ -13,8 +13,8 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
-#if 'DYNO' in os.environ:
-sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
+if 'DYNO' in os.environ:
+	sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
 
 
 db = SQLAlchemy(app)
