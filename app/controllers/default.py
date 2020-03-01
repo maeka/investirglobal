@@ -23,10 +23,7 @@ def before_request():
         code = 301
         return redirect(url, code=code)'''
 
-@app.before_request
-def force_https():
-    if request.endpoint in app.view_functions and not request.is_secure:
-        return redirect(request.url.replace('http://', 'https://'))
+
 
 
 @app.route('/manifest.json')
