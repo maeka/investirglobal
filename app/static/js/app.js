@@ -33,7 +33,6 @@ btnAdd.addEventListener('click', (e) => {
   }
   console.log(e);
   deferredPrompt = e;
-  e.prompt();
   e
     .then(function(choiceResult) {
       if (choiceResult.outcome === 'accepted') {
