@@ -9,9 +9,7 @@ from flask_sslify import SSLify
 
 
 
-app = Flask(__name__, 
-	instance_relative_config=True,
-	static_url_path='')
+app = Flask(__name__)
 app.config.from_object('config')
 
 
