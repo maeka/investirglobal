@@ -19,9 +19,9 @@ from app import db
 bp = Blueprint('default', __name__)
 
 
-@bp.route('/')
-@bp.route('/index')
-@bp.route('/index.html')
+@bp.route('/', defaults={'user': None})
+@bp.route('/index', defaults={'user': None})
+@bp.route('/index.html', defaults={'user': None})
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})

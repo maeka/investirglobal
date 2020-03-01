@@ -5,7 +5,7 @@
 {% block content %}
 
 
-			  <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark" style="background: url(static/images/content/orisinals/warren_full.png) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+			  <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark" style="background: url({{ url_for('static', filename='images/content/orisinals/warren_full.png') }}) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
 			    <div class="col-md-6 px-0">
 			      <h1 class="display-4 font-italic">Por que Warren Buffet investe em ações da Coca-Cola?</h1>
 			      <p class="lead my-4"><b>Warren Buffett, um dos maiores investidores americanos, tem uma longa relação com a Coca-Cola. Entenda porque ele investe na empresa de bebidas e quais lições tirou disso.</b></p>
@@ -30,8 +30,8 @@
 			          <a href="content/{{ post.id }}" class="stretched-link">Continue reading</a>
 			        </div>
 			        <div class="col-auto d-none d-lg-block">
-			        {% if post.img_thumb %}
-			        <img src="static/images/content/thumb/{{ post.img_thumb }}">
+			        {% if post.img_thumb %}			        
+			        <img src="images/content/thumb/{{ post.img_thumb }}">
 			        {% else %}
 
 			        {% endif %}

@@ -35,5 +35,6 @@ from app.controllers import default, main, pwa
 
 app.register_blueprint(main.bp)
 app.register_blueprint(pwa.bp)
+app.register_blueprint(default.bp)
 
 #return app
