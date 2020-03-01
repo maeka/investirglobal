@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
@@ -12,10 +12,6 @@ from flask_sslify import SSLify
 app = Flask(__name__)
 app.config.from_object('config')
 
-@app.before_request
-def force_https():
-    if request.endpoint in app.view_functions and not request.is_secure:
-        return redirect(request.url.replace('http://', 'https://'))
 
 
 if 'DYNO' in os.environ:
