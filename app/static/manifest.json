@@ -2,12 +2,12 @@
   "name": "Flask-PWA",
   "short_name": "Flask-PWA",
   "description": "A progressive webapp template built with Flask",
-  "theme_color": "transparent",
-  "background_color": "transparent",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "https://investirglobal.herokuapp.com/index.html",
+  "start_url": "/",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
