@@ -9,6 +9,10 @@ if (workbox) {
     {
       "url": "/index.html",
       "revision": "1"
+    },
+    {
+      "url": "/webapp",
+      "revision": "1"
     }
   ]);
 
