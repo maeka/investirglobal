@@ -1,5 +1,5 @@
 import os.path
-from flask_sslify import SSLify
+
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
