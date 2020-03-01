@@ -1,0 +1,27 @@
+			  	{% for post in posts_data %}
+			  	<!--gomo ini -->
+			    <!--div class="col-md-12 rounded bg-white ml-0"-->
+			    <div class="p-0 rounded bg-white  ml-0">
+			      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-1 h-md-250 position-relative  bg-white">
+			        <div class="col p-4 d-flex flex-column position-static ml-0">
+			          <strong class="d-inline-block mb-2 text-primary">
+			          {{ post.cats }}
+			      	</strong>
+			          <h4 class="mb-0">{{ post.title }}</h4>
+			          <div class="mb-1 text-muted">{{ post.pbdate }}</div>
+			          <p class="card-text mb-auto"></p>
+			          <a href="{{ post.id }}" class="stretched-link">Continue reading</a>
+			        </div>
+			        <div class="col-auto d-none d-lg-block">
+			        {% if post.img_thumb %}
+			        <img src="../../static/images/content/thumb/{{ post.img_thumb }}">
+			        {% else %}
+
+			        {% endif %}
+			          <!--svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg-->
+
+			        </div>
+			      </div>
+			    </div>
+			  	<!--gomo fim -->
+			  	{% endfor %}

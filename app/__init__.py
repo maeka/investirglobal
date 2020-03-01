@@ -8,8 +8,17 @@ from flask_admin import Admin, BaseView, expose, AdminIndexView
 
 
 
-app = Flask(__name__)
+app = Flask(__name__,
+	instance_relative_config=True,
+	static_url_path='')
 app.config.from_object('config')
+
+import os
+
+from flask_sslify import SSLify
+if 'DYNO' in os.environ:
+	sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -22,5 +31,9 @@ login_manager.init_app(app)
 
 
 from app.models import tables 
-from app.controllers import default
+from app.controllers import default, main, pwa
 
+app.register_blueprint(main.bp)
+app.register_blueprint(pwa.bp)
+
+#return app

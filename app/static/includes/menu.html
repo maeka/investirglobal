@@ -1,0 +1,6 @@
+    <nav class="nav d-flex centralize-content-between">
+    	<span class="p-2 text-muted">Destaques:</span> 
+		{% for i in range (0, len_cats) %} 					
+		<a class="p-2 text-muted" href="/topic/{{ catag_name[i] }}">{{ catag_name[i] }}</a>
+		{% endfor %} 
+	</nav>
