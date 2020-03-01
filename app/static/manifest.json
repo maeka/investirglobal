@@ -6,7 +6,7 @@
   "background_color": "#FFFFFF",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "https://investirglobal.herokuapp.com/",
   "start_url": "/",
   "icons": [
     {
