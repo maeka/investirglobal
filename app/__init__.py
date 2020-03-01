@@ -4,16 +4,18 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager, UserMixin, login_user, LoginManager, current_user, login_required, logout_user
 from flask_admin import Admin, BaseView, expose, AdminIndexView
+import os
+from flask_sslify import SSLify
 
 
 
+app = Flask(__name__, 
+	instance_relative_config=True,
+	static_url_path='/static')
 
-app = Flask(__name__)
 app.config.from_object('config')
 
-import os
 
-from flask_sslify import SSLifys
 if 'DYNO' in os.environ:
 	sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
 
