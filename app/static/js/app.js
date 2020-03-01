@@ -30,7 +30,7 @@ btnAdd.addEventListener('click', (e) => {
   btnAdd.style.visibility = 'hidden';
   if (deferredPrompt) {
     deferredPrompt.prompt();
-  }
+  } else { deferredPrompt = e; }
   deferredPrompt.userChoice
     .then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
