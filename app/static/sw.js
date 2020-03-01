@@ -9,14 +9,6 @@ if (workbox) {
     {
       "url": "/",
       "revision": "1"
-    },
-    {
-      "url": "/index",
-      "revision": "1"
-    },
-    {
-      "url": "/index.html",
-      "revision": "1"
     }
   ]);
 
