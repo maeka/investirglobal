@@ -8,14 +8,12 @@ from flask_admin import Admin, BaseView, expose, AdminIndexView
 
 
 
-app = Flask(__name__,
-	instance_relative_config=True,
-	static_url_path='')
+app = Flask(__name__)
 app.config.from_object('config')
 
 import os
 
-from flask_sslify import SSLify
+from flask_sslify import SSLifys
 if 'DYNO' in os.environ:
 	sslify = SSLify(app)  # only trigger SSLify if the app is running on Heroku
 
