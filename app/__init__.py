@@ -11,7 +11,7 @@ from flask_talisman import Talisman
 
 app = Flask(__name__)
 
-Talisman(app)
+#Talisman(app)
 
 '''@app.before_request
 def before_request():
