@@ -22,7 +22,8 @@ csp = {
         'fonts.gstatic.com',
         'www.w3.org',
         'www.youtube.com',
-        'storage.googleapis.com'
+        'storage.googleapis.com',
+        's.ytimg.com/'
     ]
 }
 
