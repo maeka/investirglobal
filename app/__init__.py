@@ -5,14 +5,12 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_login import LoginManager, UserMixin, login_user, LoginManager, current_user, login_required, logout_user
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 import os
-from flask_sslify import SSLify
 from flask import request, redirect
-from werkzeug.serving import make_ssl_devcert
+from flask_talisman import Talisman
 
-make_ssl_devcert('key')
 
 app = Flask(__name__)
-
+Talisman(app)
 '''@app.before_request
 def before_request():
     if request.url.startswith('http://'):
@@ -20,9 +18,9 @@ def before_request():
         code = 301
         return redirect(url, code=code)'''
 
-if 'DYNO' in os.environ:
-	sslify = SSLify(app, permanent=True)  # only trigger SSLify if the app is running on Heroku
-	print(sslify)
+#if 'DYNO' in os.environ:
+	#sslify = SSLify(app, permanent=True)  # only trigger SSLify if the app is running on Heroku
+	#print(sslify)
 
 app.config.from_object('config')
 
