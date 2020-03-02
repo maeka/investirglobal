@@ -19,7 +19,10 @@ csp = {
         'code.jquery.com',
         'cdn.jsdelivr.net',
         'storage.googleapis.com',
-        'fonts.googleapis.com'
+        'fonts.googleapis.com',
+        'fonts.gstatic.com',
+        'www.w3.org',
+        'www.youtube.com'
     ]
 }
 
