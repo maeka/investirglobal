@@ -14,10 +14,12 @@ csp = {
     'default-src': [
         '\'self\'',
         '\'unsafe-inline\'',
+        '\'unsafe-url\'',
         'stackpath.bootstrapcdn.com',
         'code.jquery.com',
         'cdn.jsdelivr.net',
-        'storage.googleapis.com'
+        'storage.googleapis.com',
+        'fonts.googleapis.com'
     ]
 }
 
