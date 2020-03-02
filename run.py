@@ -3,4 +3,4 @@ from waitress import serve
 
 if __name__ == '__main__':
 	#manager.run()
-	serve(app)
+	serve(app, url_scheme='https')
