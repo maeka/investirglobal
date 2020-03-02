@@ -58,14 +58,14 @@ def webapp():
 @app.route('/', defaults={'user': None})
 @app.route('/index', defaults={'user': None})
 @app.route('/index.html', defaults={'user': None})
-@app.before_request
-def before_request():
-    if request.url.startswith('http://'):
-        url = request.url.replace('http://', 'https://', 1)
-        code = 301
-        print(url)
-        return redirect(url, code=code)
 def index(user):
+    @app.before_request
+    def before_request():
+        if request.url.startswith('http://'):
+            url = request.url.replace('http://', 'https://', 1)
+            code = 301
+            print(url)
+            return redirect(url, code=code)
     """Serve homepage template."""
 #category scheme
     cats = CatsTags.query.all()
