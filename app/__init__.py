@@ -21,10 +21,10 @@ csp = {
         'fonts.googleapis.com',
         'fonts.gstatic.com',
         'www.w3.org',
-        'www.youtube.com'
-    ],
-    'img-src': '*',
-    'script-src': 'storage.googleapis.com',
+        'www.youtube.com',
+        'storage.googleapis.com',
+    	'img-src': '*'
+    ]
 }
 
 Talisman(app, content_security_policy=csp)
