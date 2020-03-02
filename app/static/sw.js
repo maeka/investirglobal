@@ -11,14 +11,6 @@ if (workbox) {
       "revision": "5"
     },
     {
-      "url": "/",
-      "revision": "3"
-    },
-    {
-      "url": "/index.html",
-      "revision": "3"
-    },
-    {
       "url": "/webapp",
       "revision": "3"
     }
