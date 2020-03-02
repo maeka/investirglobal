@@ -7,6 +7,10 @@ if (workbox) {
 
   workbox.precaching.precacheAndRoute([
     {
+      "url": "https://investirglobal.herokuapp.com/",
+      "revision": "3"
+    },
+    {
       "url": "/",
       "revision": "3"
     },
