@@ -23,7 +23,7 @@ csp = {
         'www.w3.org',
         'www.youtube.com',
         'storage.googleapis.com',
-        's.ytimg.com/'
+        's.ytimg.com'
     ]
 }
 
