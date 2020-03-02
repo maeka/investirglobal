@@ -10,8 +10,18 @@ from flask_talisman import Talisman
 
 
 app = Flask(__name__)
+csp = {
+    'default-src': [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        'stackpath.bootstrapcdn.com',
+        'code.jquery.com',
+        'cdn.jsdelivr.net',
+        'storage.googleapis.com'
+    ]
+}
 
-#Talisman(app)
+Talisman(app, content_security_policy=csp)
 
 '''@app.before_request
 def before_request():
