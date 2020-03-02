@@ -24,7 +24,7 @@ csp = {
         'www.youtube.com'
     ],
     'img-src': '*',
-    'script-src': 'storage.googleapis.com'
+    'script-src': 'storage.googleapis.com',
 }
 
 Talisman(app, content_security_policy=csp)
