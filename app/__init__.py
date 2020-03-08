@@ -38,7 +38,10 @@ csp = {
     ],
     'object-src data': [
         '\'unsafe-eval\''
-    ]
+    ],
+    'style-src': '\'unsafe-inline\' \'self\'',
+    'script-src': '\'unsafe-inline\' \'self\'',
+    'font-src' : '*'
 }
 
 Talisman(app, content_security_policy=csp)
