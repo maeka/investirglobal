@@ -25,15 +25,16 @@ csp = {
         'storage.googleapis.com',
         's.ytimg.com',
         '*.github.com',
-        'data:'
     ],
     'img-src': [
         '\'self\'',
         '\'unsafe-inline\'',
-        'data:'
         '*.bootstrapcdn.com',
         '*.w3.org',
         '*.github.com'
+    ],
+    'object-src data': [
+        '\'unsafe-eval\''
     ]
 }
 
