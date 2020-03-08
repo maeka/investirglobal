@@ -14,18 +14,23 @@ csp = {
     'default-src': [
         '\'self\'',
         '\'unsafe-inline\'',
-        'stackpath.bootstrapcdn.com',
+        '*.bootstrapcdn.com',
         'code.jquery.com',
         'cdn.jsdelivr.net',
         'storage.googleapis.com',
         'fonts.googleapis.com',
         'fonts.gstatic.com',
-        'www.w3.org',
-        'www.youtube.com',
+        '*.w3.org',
+        '*.youtube.com',
         'storage.googleapis.com',
         's.ytimg.com'
     ],
-    'img-src': ['*.w3.org','*.herokuapp.com', '*.127.0.0.1:5000']
+    'img-src': [
+        '\'self\'',
+        '\'unsafe-inline\'',
+        '*.bootstrapcdn.com',
+        '*.w3.org'
+    ]
 }
 
 Talisman(app, content_security_policy=csp)
