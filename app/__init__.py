@@ -27,11 +27,14 @@ csp = {
         '*.github.com',
     ],
     'img-src': [
-        '\'self\'',
+        '\'self\' data:',
         '\'unsafe-inline\'',
         '*.bootstrapcdn.com',
         '*.w3.org',
         '*.github.com'
+    ],
+    'media-src': [
+            '*',
     ],
     'object-src data': [
         '\'unsafe-eval\''
