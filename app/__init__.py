@@ -14,7 +14,6 @@ csp = {
     'default-src': [
         '\'self\'',
         '\'unsafe-inline\'',
-        'img-src': '*',
         'stackpath.bootstrapcdn.com',
         'code.jquery.com',
         'cdn.jsdelivr.net',
@@ -25,7 +24,8 @@ csp = {
         'www.youtube.com',
         'storage.googleapis.com',
         's.ytimg.com'
-    ]
+    ],
+    'img-src': ['*.w3.org','*.herokuapp.com', '*.127.0.0.1:5000']
 }
 
 Talisman(app, content_security_policy=csp)
