@@ -23,13 +23,15 @@ csp = {
         '*.w3.org',
         '*.youtube.com',
         'storage.googleapis.com',
-        's.ytimg.com'
+        's.ytimg.com',
+        '*.github.com'
     ],
     'img-src': [
         '\'self\'',
         '\'unsafe-inline\'',
         '*.bootstrapcdn.com',
-        '*.w3.org'
+        '*.w3.org',
+        '*.github.com'
     ]
 }
 
