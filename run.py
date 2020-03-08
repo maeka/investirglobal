@@ -1,6 +1,14 @@
 from app import manager, app
 from waitress import serve
 
+
 if __name__ == '__main__':
-	#manager.run()
-	serve(app, url_scheme='https')
+	if 'DYNO' in os.environ:
+		serve(app, url_scheme='https')
+	else:
+		manager.run()
+
+
+#if 'DYNO' in os.environ:
+	#sslify = SSLify(app, permanent=True)  # only trigger SSLify if the app is running on Heroku
+	#print(sslify)

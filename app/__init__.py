@@ -14,6 +14,7 @@ csp = {
     'default-src': [
         '\'self\'',
         '\'unsafe-inline\'',
+        'img-src': '*',
         'stackpath.bootstrapcdn.com',
         'code.jquery.com',
         'cdn.jsdelivr.net',
