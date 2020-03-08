@@ -39,9 +39,18 @@ csp = {
     'object-src data': [
         '\'unsafe-eval\''
     ],
-    'style-src': '\'unsafe-inline\' \'self\'',
+    'style-src': [
+    '\'unsafe-inline\' \'self\'',
+    '*.bootstrapcdn.com',
+    'code.jquery.com',
+    'cdn.jsdelivr.net',
+    'storage.googleapis.com',
+    'fonts.googleapis.com',
+    'fonts.gstatic.com'
+    ],
     'script-src': [
     '\'unsafe-inline\' \'self\'',
+    '*.bootstrapcdn.com',
     'code.jquery.com',
     'cdn.jsdelivr.net',
     'storage.googleapis.com',
