@@ -40,8 +40,13 @@ csp = {
         '\'unsafe-eval\''
     ],
     'style-src': '\'unsafe-inline\' \'self\'',
-    'script-src': '\'unsafe-inline\' \'self\'',
-    'font-src' : '*'
+    'script-src': [
+    '\'unsafe-inline\' \'self\'',
+    'code.jquery.com',
+    'cdn.jsdelivr.net',
+    'storage.googleapis.com',
+    'fonts.googleapis.com',
+    'fonts.gstatic.com']
 }
 
 Talisman(app, content_security_policy=csp)
