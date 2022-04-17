@@ -7,6 +7,7 @@ from flask import Flask, render_template, redirect, flash, request, url_for, abo
 from wtforms import StringField, PasswordField, BooleanField, HiddenField, TextAreaField
 from wtforms.widgets import TextArea
 
+#  
 class User(db.Model):
 	__tablename__= "users"
 
