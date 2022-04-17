@@ -7,6 +7,7 @@ from flask_admin import Admin, BaseView, expose, AdminIndexView
 import os
 from flask import request, redirect
 from flask_talisman import Talisman
+from flask_ckeditor import CKEditor, CKEditorField
 
 
 app = Flask(__name__)
@@ -25,13 +26,17 @@ csp = {
         'storage.googleapis.com',
         's.ytimg.com',
         '*.github.com',
+        '*.cloudflare.com',
+        'cdn.ckeditor.com'
     ],
     'img-src': [
         '\'self\' data:',
         '\'unsafe-inline\'',
         '*.bootstrapcdn.com',
         '*.w3.org',
-        '*.github.com'
+        '*.github.com',
+        '*.cloudflare.com',
+        'cdn.ckeditor.com'
     ],
     'media-src': [
             '*',
@@ -46,7 +51,9 @@ csp = {
     'cdn.jsdelivr.net',
     'storage.googleapis.com',
     'fonts.googleapis.com',
-    'fonts.gstatic.com'
+    'fonts.gstatic.com',
+    'cdnjs.cloudflare.com',
+    'cdn.ckeditor.com'
     ],
     'script-src': [
     '\'unsafe-inline\' \'self\'',
@@ -55,7 +62,9 @@ csp = {
     'cdn.jsdelivr.net',
     'storage.googleapis.com',
     'fonts.googleapis.com',
-    'fonts.gstatic.com']
+    'fonts.gstatic.com',
+    '*.cloudflare.com',
+    'cdn.ckeditor.com']
 }
 
 Talisman(app, content_security_policy=csp)
@@ -86,6 +95,7 @@ manager.add_command('db', MigrateCommand)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+ckeditor = CKEditor(app)
 
 from app.models import tables 
 from app.controllers import default

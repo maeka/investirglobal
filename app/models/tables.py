@@ -1,9 +1,11 @@
 # This Python file uses the following encoding: utf-8
-from app import db, app, login_manager
+from app import db, app, login_manager, ckeditor
 from flask_login import UserMixin, login_user, LoginManager, current_user, login_required, logout_user
 from flask_admin import Admin, BaseView, expose, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask import Flask, render_template, redirect, flash, request, url_for, abort
+from wtforms import StringField, PasswordField, BooleanField, HiddenField, TextAreaField
+from wtforms.widgets import TextArea
 
 class User(db.Model):
 	__tablename__= "users"
@@ -61,7 +63,7 @@ class Post(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.Text)
 	description = db.Column(db.Text)
-	content = db.Column(db.Text)
+	content = db.Column(db.UnicodeText)
 	uri = db.Column(db.Text, unique=True)
 	created_at = db.Column(db.DateTime)
 	updated_at = db.Column(db.DateTime)
@@ -99,6 +101,25 @@ class Post(db.Model):
 	def __repr__(self):
 		return '<Post %r>' % self.title
 
+class CKEditorWidget(TextArea):
+    def __call__(self, field, **kwargs):
+        if kwargs.get('class'):
+            kwargs['class'] += " ckeditor"
+        else:
+            kwargs.setdefault('class', 'ckeditor')
+        return super(CKEditorWidget, self).__call__(field, **kwargs)
+
+
+class CKEditorField(TextAreaField):
+    widget = CKEditorWidget()
+
+
+#class TestAdminView(ModelView):
+class PostAdminView(ModelView):
+	form_overrides = dict(content=CKEditorField)
+	can_view_details = True
+	create_template = 'edit.html'
+	edit_template = 'edit.html'
 
 
 class Follow(db.Model):
@@ -166,7 +187,8 @@ class MyAdminIndexView(AdminIndexView):
 flask_admin = Admin(app, index_view=MyAdminIndexView())
 
 flask_admin.add_view(ModelView(User, db.session))
-flask_admin.add_view(ModelView(Post, db.session))
+#flask_admin.add_view(ModelView(Post, db.session))
+flask_admin.add_view(PostAdminView(model=Post, session=db.session))
 flask_admin.add_view(ModelView(Follow, db.session))
 flask_admin.add_view(ModelView(CatsTags, db.session))
 flask_admin.add_view(ModelView(ZipperPostsCatsTags, db.session))
