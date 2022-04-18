@@ -172,6 +172,7 @@ def topic(topic):
 
 @app.route('/content', defaults={'id': None, 'uri': None})
 @app.route('/content/<int:id>')
+@app.route('/content/<uri>')
 def _content(id):
 #category scheme
     cats = CatsTags.query.all()
@@ -399,21 +400,23 @@ def about():
 
 @app.route('/login', methods=['POST', 'GET'])
 @app.route('/login.html', methods=['POST', 'GET'])
-@app.route('/login.html?next=index', methods=['POST', 'GET'])
+
 
 def login():
-    """Serve homepage template."""
 #category scheme
     cats = CatsTags.query.all()
+    catag_id = []
     catag_name = []
     catag_colour = []
     for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
         catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
         catag_name.append(catag_name_)
         catag_colour.append(catag_colour_)
 #category scheme
-
+    """Serve homepage template."""
 
     form = DoLogin()
     if form.validate_on_submit():
@@ -427,7 +430,7 @@ def login():
             if user.role == 'admin':
                 next = 'admin'
             else:
-                next = request.args.get('next')
+                next = request.endpoint
             #next = 'index'
             print(next)
             if not is_safe_url(next, {"127.0.0.1:5000"}):
@@ -458,15 +461,17 @@ def logout():
 def register():
 #category scheme
     cats = CatsTags.query.all()
+    catag_id = []
     catag_name = []
     catag_colour = []
     for cat in cats:
+        catag_id_ = CatsTags.query.filter_by(id=cat.id).first().id
         catag_name_ = CatsTags.query.filter_by(id=cat.id).first().catag_name
         catag_colour_ = CatsTags.query.filter_by(id=cat.id).first().catag_colour
+        catag_id.append(catag_id_)
         catag_name.append(catag_name_)
         catag_colour.append(catag_colour_)
 #category scheme
-
     form = InsertUser()
     if form.validate_on_submit():
         i = User(form.data['name'], 
@@ -493,6 +498,10 @@ def register():
 
 
 @app.route("/reports")
-@login_required
+#@login_required
 def reports():
-    return "em breve!"
+    if not current_user.is_authenticated:
+        #return redirect(url_for('login'))
+        return redirect(url_for('login', next=request.endpoint))
+    else:
+        return "em breve!"
